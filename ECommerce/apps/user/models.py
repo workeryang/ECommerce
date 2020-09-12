@@ -13,10 +13,17 @@ class UserInfo(models.Model):
     update_time = models.DateTimeField(auto_now=True)
 
     def to_dict(self):
-        return {'id': self.id, 'username': self.username, 
-        'password': self.password, 'mobile': self.mobile, 'is_super': self.is_super,
-        'email': self.email, 'state': self.state, 'create_time': self.create_time.strftime('%Y-%m-%d %H:%M:%S'),
-        'update_time': self.update_time.strftime('%Y-%m-%d %H:%M:%S')}
+        return {
+            'id': self.id,
+            'username': self.username,
+            'password': self.password,
+            'mobile': self.mobile,
+            'is_super': self.is_super,
+            'email': self.email if self.email else '',
+            'state': self.state,
+            'create_time': self.create_time.strftime('%Y-%m-%d %H:%M:%S'),
+            'update_time': self.update_time.strftime('%Y-%m-%d %H:%M:%S')
+        }
 
     def __str__(self):
         return self.username
@@ -36,11 +43,10 @@ class Role(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
 
-    user_info = models.ManyToManyField(to='UserInfo', related_name='users')
+    user_info = models.ManyToManyField(to='UserInfo', related_name='roles', blank=True)
 
     def __str__(self):
         return self.role_name
 
     class Meta:
         db_table = 'role'
-
