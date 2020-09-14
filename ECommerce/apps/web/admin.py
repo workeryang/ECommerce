@@ -1,3 +1,4 @@
 from django.contrib import admin
+from ECommerce.apps.web.models import Right
 
-# Register your models here.
+admin.site.register(Right)

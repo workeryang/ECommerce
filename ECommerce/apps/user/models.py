@@ -1,4 +1,5 @@
 from django.db import models
+from ECommerce.apps.web.models import Right
 
 
 class UserInfo(models.Model):
@@ -44,6 +45,8 @@ class Role(models.Model):
     update_time = models.DateTimeField(auto_now=True)
 
     user_info = models.ManyToManyField(to='UserInfo', related_name='roles', blank=True)
+
+    rights = models.ManyToManyField(to='web.Right', blank=True, related_name='roles')
 
     def __str__(self):
         return self.role_name
